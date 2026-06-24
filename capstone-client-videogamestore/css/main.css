@@ -141,6 +141,7 @@ main > .content-form .cart-item
     border-radius: 5px;
     margin: 5px;
     transition: transform 0.2s ease, border-color 0.2s ease;
+    align-items: stretch;
 }
 
 .product:hover {
@@ -150,17 +151,18 @@ main > .content-form .cart-item
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.product  .photo
+.product .photo
 {
     display: flex;
     justify-content: space-between;
-    padding: 0 10px 10px 10px;
+    padding: 0;
 }
-.product  .photo > img
+.product .photo > img
 {
-    width: 33%;
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
     cursor: pointer;
-    border: solid 1px #ccc;
 }
 
 .product .price
