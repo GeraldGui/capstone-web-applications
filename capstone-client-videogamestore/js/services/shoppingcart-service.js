@@ -85,7 +85,7 @@ class ShoppingCartService {
         cartHeader.classList.add("cart-header")
 
         const h1 = document.createElement("h1")
-        h1.innerText = "Cart";
+        h1.innerText = "Cart Total: " + this.cart.total;
         cartHeader.appendChild(h1);
 
         const button = document.createElement("button");
@@ -94,6 +94,17 @@ class ShoppingCartService {
         button.innerText = "Clear";
         button.addEventListener("click", () => this.clearCart());
         cartHeader.appendChild(button)
+
+        const checkoutButton = document.createElement("button");
+
+        checkoutButton.classList.add("btn");
+        checkoutButton.classList.add("btn-success");
+
+        checkoutButton.innerText = "Check Out";
+
+        checkoutButton.addEventListener("click", () => {this.checkOut();});
+
+        cartHeader.appendChild(checkoutButton);
 
         contentDiv.appendChild(cartHeader)
         main.appendChild(contentDiv);
@@ -118,7 +129,7 @@ class ShoppingCartService {
         let photoDiv = document.createElement("div");
         photoDiv.classList.add("photo")
         let img = document.createElement("img");
-        img.src = `/images/products/${item.product.imageUrl}`
+        img.src = `./images/products/${item.product.imageUrl}`
         img.addEventListener("click", () => {
             showImageDetailForm(item.product.name, img.src)
         })
@@ -139,6 +150,35 @@ class ShoppingCartService {
 
 
         parent.appendChild(outerDiv);
+    }
+
+    checkOut()
+    {
+        const url = `${config.baseUrl}/orders`;
+
+        axios.post(url)
+            .then(response => {
+
+                var orderTotal = this.cart.total;
+
+                this.cart = {
+                    items: [],
+                    total: 0
+                };
+
+                this.clearCart();
+                this.updateCartDisplay();
+
+                alert("Order placed successfully!\nTotal Paid: " + orderTotal);
+
+            })
+            .catch(error => {
+                templateBuilder.append("error",
+                    {
+                        error: "Checkout failed."
+                    },
+                    "errors");
+            });
     }
 
     clearCart()
@@ -186,10 +226,6 @@ class ShoppingCartService {
         }
     }
 }
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
     cartService = new ShoppingCartService();

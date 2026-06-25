@@ -71,6 +71,10 @@ function showCart()
     cartService.loadCartPage();
 }
 
+function checkOutCart() {
+    cartService.checkOut();
+}
+
 function clearCart()
 {
     cartService.clearCart();
