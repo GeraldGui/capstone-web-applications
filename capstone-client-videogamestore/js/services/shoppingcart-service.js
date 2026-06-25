@@ -88,12 +88,16 @@ class ShoppingCartService {
         h1.innerText = "Cart Total: " + this.cart.total;
         cartHeader.appendChild(h1);
 
+        const clearCheckout = document.createElement("div")
+        clearCheckout.classList.add("clear-checkout")
+
         const button = document.createElement("button");
         button.classList.add("btn")
         button.classList.add("btn-danger")
         button.innerText = "Clear";
         button.addEventListener("click", () => this.clearCart());
-        cartHeader.appendChild(button)
+        clearCheckout.appendChild(button)
+        cartHeader.appendChild(clearCheckout)
 
         const checkoutButton = document.createElement("button");
 
@@ -104,7 +108,8 @@ class ShoppingCartService {
 
         checkoutButton.addEventListener("click", () => {this.checkOut();});
 
-        cartHeader.appendChild(checkoutButton);
+        clearCheckout.appendChild(checkoutButton)
+        cartHeader.appendChild(clearCheckout);
 
         contentDiv.appendChild(cartHeader)
         main.appendChild(contentDiv);

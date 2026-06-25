@@ -119,8 +119,13 @@ main > .content-form .cart-item
 .content-form .cart-header
 {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+}
+
+.clear-checkout {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
 }
 
 .content-form .cart-total
